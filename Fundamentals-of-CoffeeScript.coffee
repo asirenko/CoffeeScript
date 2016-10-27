@@ -12,8 +12,8 @@
 
 # ———————
 
-# События
-# Клик, Скрол, Долгое нажатие etc.
+# Events(События)
+# Tap(Нажатие), Клик, Скрол, Долгое нажатие etc.
 
 # Действия пользователя называют "Событиями",
 # а функцию, срабатывающую в ответ — "Колбэком" или "Обработчиком события".
@@ -38,3 +38,33 @@ layerA.on(Events.Click, clickHandler)
 
 # Чтобы становить отслеживание событий, вы можете использовать функцию отключения:
 layerA.off(Events.Click, clickHandler)
+
+# Tap Events
+
+square = new Layer
+square.name = "Square"
+
+# Нажатие на обьект
+square.on Events.Tap, (event) ->
+  print "Tap"
+
+# Быстрое двойное нажатие
+square.on Events.DoubleTap, (event) ->
+  print "Double Tap"
+
+# Сокращенная запись события нажатия
+square.onTap ->
+  print "Tap"
+
+# Сокращенная запись, тоже самое, что и события нажатия
+square.onSingleTap ->
+  print "Single tap"
+
+# Сокращенная запись, быстрое двойное нажатие
+square.onDoubleTap ->
+  print "Double tap"
+
+# ForceTap Events
+# Событие на длительное нажатие
+square.on Events.ForceTap, (event) ->
+  print "Force tap"
