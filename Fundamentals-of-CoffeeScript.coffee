@@ -10,12 +10,28 @@
 # print result() — Вызов функции (Пустые скобки обязательны,
 # чтобы показать, что это запуск функции, а не переменная)
 
-# События
-square = new Layer
-square.name = "Square"
+———————
 
-clickHaandler = (event, layer) ->
+# События
+# Клик, Скрол, Долгое нажатие etc.
+
+# Действия пользователя называют "Событиями",
+# а функцию, срабатывающую в ответ — "Колбэком"
+# или "Обработчиком события".
+
+# layerA.onClick(functionA)
+
+# Пример:
+layerA = new Layer
+layerA.name = "Square"
+
+layerA.on Events.Click, (event, layer) ->
   print "Clicked", layer.name
 
-square.on(Events.Click, clickHaandler)
-square.off(Events.Click, clickHaandler)
+# Обработчик события
+clickHandler = (event, layer) ->
+  print "Clicked", layer.name
+
+# Событие
+layerA.on(Events.Click, clickHandler)
+layerA.off(Events.Click, clickHandler)
