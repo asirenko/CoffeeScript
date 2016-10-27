@@ -36,6 +36,8 @@ layerA.name = "Square"
 clickHandler = (event, layer) ->
   print "Clicked", layer.name
 
-# Событие
+# Отслеживание событий
 layerA.on(Events.Click, clickHandler)
+
+# Чтобы становить отслеживание событий, вы можете использовать функцию отключения:
 layerA.off(Events.Click, clickHandler)
