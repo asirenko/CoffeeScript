@@ -21,12 +21,16 @@
 
 # layerA.onClick(functionA)
 
-# Пример:
+# Пример 1:
 layerA = new Layer
 layerA.name = "Square"
 
 layerA.on Events.Click, (event, layer) ->
   print "Clicked", layer.name
+
+# Пример 2:
+layerA = new Layer
+layerA.name = "Square"
 
 # Обработчик события
 clickHandler = (event, layer) ->
