@@ -1,9 +1,73 @@
+
+# ———————
+
+# States
+# Состояния – это набор свойств слоя и его значений.
+# Вы можете добавлять, удалять или переключаться между состояниями.
+# Переход между состояниями может быть сделан с анимацией или без.
+# Эсть 3 заранее определенных состояний:
+# default – Первоначально активное состояние;
+# current – На данный момент активное состояние;
+# previous – Ранее активное состояние.
+
+layer_name = new Layer
+
+# Добавление состояния
+layer_name.states.stateA =
+    x: 500
+    opacity: 0.5
+
+# Add a multiple states
+layer_name.states =
+  stateA:
+    x: 500
+    opacity: 0.5
+
+  stateB:
+    x: 200
+    opacity: 1
+
+# Состояние с свойствами анимации
+layer_name.states.stateC =
+  x: 100
+  animationOptions:
+    curve: "spring"
+
+# Анимирование состояния
+layer_name.animate("stateA")
+
+# Переключение между состояниями без анимации
+layer_name.stateSwitch("stateB")
+
+# Цикличекий переход между всеми состояниями
+layer_name.onTap ->
+  layer_name.stateCycle()
+
+# Цикличекий переход между всеми A, B состояниями
+layer_name.onTap ->
+  layer_name.stateCycle("stateA", "stateB")
+
+# Вернуть обьект к начальному состоянию
+# Свойства:
+# name – (только для чтения) свойство возвращает имя обьекта состояния
+print layer_name.states.current
+print layer_name.states.current.name
+
+# Возвращает объект ранее активного состояния
+layer_name.states.previous
+
+# Удаления состояния v.1
+delete layer_name.states.stateA
+
+# ———————
+
 # Canvas
 # Холст
 
 # Определяет Ширину и высоту текущего документа в пикселях
 print Canvas.size
 
+# ———————
 
 # Функции
 
@@ -133,3 +197,5 @@ layer_name.onSwipeStart ->
 # Конец cобитие пролитсывания
 layer_name.onSwipeEnd ->
   print "End swiping"
+
+# ———————
