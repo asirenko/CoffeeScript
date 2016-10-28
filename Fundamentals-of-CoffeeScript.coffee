@@ -39,8 +39,12 @@ layerA.on(Events.Click, clickHandler)
 # Чтобы становить отслеживание событий, вы можете использовать функцию отключения:
 layerA.off(Events.Click, clickHandler)
 
-# Tap Events
+# ———————
 
+# Tap Events
+# Событие на нажатие
+
+# Пример:
 square = new Layer
 square.name = "Square"
 
@@ -64,7 +68,61 @@ square.onSingleTap ->
 square.onDoubleTap ->
   print "Double tap"
 
+# ———————
+
 # ForceTap Events
-# Событие на длительное нажатие
+# Событие на сильное нажатие
 square.on Events.ForceTap, (event) ->
   print "Force tap"
+
+# For Events.ForceTapChange
+square.onForceTapChange ->
+  print "Change of force tap pressure"
+
+# Начало Событие на сильное нажатие
+square.onForceTapStart ->
+  print "Start force tap"
+
+# Конец Событие на сильное нажатие
+square.onForceTapEnd ->
+  print "End force tap"
+
+# LongPress Events
+# Длительное нажатие
+
+layer_name = new Layer
+
+layer_name.on Events.LongPress, (event) ->
+  print "Long press"
+
+# Сокращенная запись
+layer_name.onLongPress ->
+  print "Long press"
+
+# Начало длительного нажатия
+layer_name.onLongPressStart ->
+  print "Start long press"
+
+# Конец длительного нажатия
+layer_name.onLongPressEnd ->
+  print "End long press"
+
+# ———————
+
+# Swipe Events
+# Собитие пролитсывания
+
+layer_name.on Events.Swipe, (event) ->
+  print event.distance
+
+# Сокращенная запись
+layer_name.onSwipe ->
+  print "Currently swiping"
+
+# Начало cобитие пролитсывания
+layer_name.onSwipeStart ->
+  print "Start swiping"
+
+# Конец cобитие пролитсывания
+layer_name.onSwipeEnd ->
+  print "End swiping"
