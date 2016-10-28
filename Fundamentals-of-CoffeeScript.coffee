@@ -1,3 +1,146 @@
+# ———————
+# Layer
+# Слой – базовый контейнер Framer, который может содержать images, videos, or text.
+# Слои могут быть вложенными.
+
+# Чтобы создать новый слой используйте слово – new
+layer_name = new Layer
+
+# Вы можете установить свойства слоя при его создании
+layer_name = new Layer
+  x: 100
+  y: 100
+  width: 250
+  height: 250
+  opacity: 0.5
+  backgroundColor: "white"
+
+# И вы также можете переопределить свойства слоя позже:
+layer_name.x = 200
+
+# Id
+# Уникальный идентификационный номер слоя.
+# ID слоя только для чтения и не может быть изменен.
+layer_name = new Layer
+  print layerA.id # Output: 1
+
+# Name
+# Название слоя.
+# По умолчанию слои не имеют имени. Импортированные слои наследуют имя, которое вы определили в Sketch или Photoshop.
+
+layer_name = new Layer
+  layer_name.name = "Layer Name"
+
+  print layer_name.name # Output: "Layer Name"
+
+# ...продолжение следует
+
+# Parent
+# Устанавливает родителя для этого слоя.
+# Иначе называемый – superLayer.
+
+layer_name_A = new Layer
+layer_name_B = new Layer
+
+layer_name_B.parent = layer_name_A
+
+print layer_name_B.parent # Output: <Object:Layer layer_name_A>
+
+# Children.
+# Все дочерние слои этого слоя.
+# Иначе называемый – subLayer.
+
+layer_name_A = new Layer
+
+layer_name_B = new Layer
+  parent: layer_name_A
+
+layer_name_C = new Layer
+  parent: layer_name_A
+
+print layerA.children # Output: [<Object:Layer layer_name_B>, <Object:Layer layer_name_C>]
+
+# ...продолжение следует
+
+# ———————
+
+# Функции
+
+# name = (x, y) -> — Объявление функции
+# print result — Вызов функции
+# name — Имя функции
+# x, y — Параметры
+# -> — Заменяет слово function
+
+# name = -> — Функция без параметров
+# print result() — Вызов функции (Пустые скобки обязательны,
+# чтобы показать, что это запуск функции, а не переменная)
+
+# ———————
+
+# Align – Выравнивание
+# Функция Align позволяют позиционировать объект на экране относительно его родителя.
+
+# Создать слой с позицией по центру экрана
+layer_name = new Layer
+  x: Align.center
+  y: Align.center
+
+# Сокращенная запись
+layer_name.center()
+
+# Или в правом, левом, верхнем, нижнем углу:
+x: Align.right
+x: Align.left
+y: Align.top
+y: Align.bottom
+
+# Кроме того, можно дополнительно использовать offset – свойство
+layer_name = new Layer
+  x: Align.right(100) # 100 pixels from the right
+  y: Align.bottom(-100) # 100 pixels from the bottom
+
+#
+layer_name = new Layer
+  x: Align.left(-100) # 100 pixels from the left
+  y: Align.top(100) # 100 pixels from the top
+
+# ———————
+
+# BackgroundLayer
+# Фоновый слой представляет собой обычный слой, его размер охватывает весь холст.
+# Если фоновый слой имеет родителя, фон будет наследовать размер родителя.
+
+layer_name = new BackgroundLayer
+  backgroundColor: "white"
+
+# Hex value for white
+layer_name = new BackgroundLayer
+  backgroundColor: "#ffffff"
+
+# RGB value for white
+layer_name = new BackgroundLayer
+  backgroundColor: "rgb(255,255,255)"
+
+# RGBA value for white
+layer_name = new BackgroundLayer
+  backgroundColor: "rgba(255,255,255,1)"
+
+# ———————
+
+# Canvas
+# Холст
+
+# Определяет Ширину и высоту текущего документа в пикселях
+print Canvas.size
+
+# ... Продолжение следует
+
+# ———————
+
+# Device
+
+# clip: true – ничего за приделами контейнера показываться не будет
 
 # ———————
 
@@ -58,28 +201,6 @@ layer_name.states.previous
 
 # Удаления состояния v.1
 delete layer_name.states.stateA
-
-# ———————
-
-# Canvas
-# Холст
-
-# Определяет Ширину и высоту текущего документа в пикселях
-print Canvas.size
-
-# ———————
-
-# Функции
-
-# name = (x, y) -> — Объявление функции
-# print result — Вызов функции
-# name — Имя функции
-# x, y — Параметры
-# -> — Заменяет слово function
-
-# name = -> — Функция без параметров
-# print result() — Вызов функции (Пустые скобки обязательны,
-# чтобы показать, что это запуск функции, а не переменная)
 
 # ———————
 
