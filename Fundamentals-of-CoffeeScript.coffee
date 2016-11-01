@@ -195,21 +195,148 @@ for layer in layers
 
 # Functions. Функции.
 
+# Функция с несколькими параметрами.
 # name = (x, y) -> — Объявление функции
-# print result — Вызов функции
 # name — Имя функции
 # x, y — Параметры
 # -> — Заменяет слово function
+# name(x,y) — Вызов функции
 
-# name = -> — Функция без параметров
-# print result() — Вызов функции (Пустые скобки обязательны,
+# Пример:
+# Multiple parameters
+rotate = (layer, degrees) ->
+  layer.rotation = layer.rotation + degrees
+
+layerA.onClick ->
+  rotate(layerA, 10)
+
+# Функция без параметров.
+# name = -> — Объявление функции
+# name() — Вызов функции (Пустые скобки обязательны,
 # чтобы показать, что это запуск функции, а не переменная)
 
+# Пример:
 sayHello = ->
   print "Hello!"
   print "How are you?"
 
 sayHello()
+
+# Можно закодить математическую формулу y = x * 10, как функцию
+y = (x) ->
+  return x * 10
+
+print y(10) # Prints 100
+
+# Но более программный способ – это писать осмысленными имена.
+timesTen = (someNumber) ->
+    return someNumber * 10
+
+print timesTen(10) # Prints 100
+
+# Можно задать значение параметра по умолчанию, чтобы сделать его не обязательным
+# при вызове функции.
+rotate = (layer, degrees = 10) ->
+  layer.rotation = layer.rotation + degrees
+
+rotate(layerA) # 10 degrees
+rotate(layerB, 50) # 50 degrees
+
+# или использовать условие:
+...
+largestWidth = (firstLayer, secondLayer) ->
+  if firstLayer.width > secondLayer.width
+      return firstLayer.width
+    else
+      return secondLayer.width
+
+layerC = new Layer
+  width: largestWidth(layerA, layerB)
+
+# ———————
+
+# Objects. Объекты
+# Это один из способов структурирования данных
+# people - объект
+# koen, sara, jorn – свойства объекта
+
+people =
+  koen: "123 Main Street"
+  sara: "456 Wall Street"
+  jorn: "789 Arts Street"
+
+print people.koen
+
+# В Framer есть много стандартных обьектов. Один из распространенных примеров – это создание нового слоя:
+myLayer = new Layer
+  x: 200
+  y: 200
+  backgroundColor: "red"
+
+# Обратиться к свойтсвам обьекта можно двумя способами:
+
+# 1.Непосредственно по ключу (точечная запись)
+print people.koen
+
+# 2.С помощью ключа в виде строки
+print people["koen"]
+
+# Строчечная запись необходима, когда мы хотим создать объект с различными состояниями в Framer.
+layerA = new Layer
+
+# Add states within a loop
+for i in [1..3]
+  layerA.states["state#{i}"] =
+    y: i * 200
+
+# Мы можем использовать в Объектах Цыклы. Основное отличие от массивов – это
+# мы должны использовать for...of цыкл вместо for...in. Обратно мы получим ключ и значение.
+people =
+  koen: 33
+  jorn: 32
+  ben: 21
+
+for key, value of people
+  print key, value
+
+# Or more logically named
+for name, age of people
+  print name, age
+
+# ———————
+
+# Classes. Классы. (Не очень понял эту тему. Возможно есть ошибки)
+# Классы это тоже самое, что и объекты. Только различие в том, что они могут быть расширены, для добавления или изменения поведения.
+# Классы строятся с ключевым слоем – new
+layerA = new Layer
+
+# Конструкторы — шаблоны заранее настроенных объектов. Конструктор выглядит как обычная функция:
+# Класс который наследует(расширает) Layer называется подкласс(subclasses)
+
+# Пример. Если мы имеем в нашем прототипе несколько кнопок то мы можем
+# создать класс, который имеет свой собственный конструктор, который определяет размер и цвет фона кнопки:
+
+# Create Class
+class Button extends Layer
+  constructor: (options) ->
+
+    # Get default layer functionality
+    super(options)
+
+    # Set default properties
+    @width = 300
+    @height = 100
+    @backgroundColor = "maroon"
+
+# Create button
+button = new Button
+
+# Продолжение следует...
+# Разболелась голова, что-то эта тема мне не зашла(((.
+
+# ———————
+
+# Scope
 
 # ———————
 
