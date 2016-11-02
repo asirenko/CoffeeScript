@@ -1,6 +1,17 @@
 # Foundations of a programming
 
-# Variables. Переменные.
+# Содержание:
+# 1. Variables. Переменные.
+# 2. Strings. Строки.
+# 3. Booleans – true и false.
+# 4. Conditionals. Условия.
+# 5. Loops & Arrays. Циклы и массивы
+# 6. Functions. Функции.
+# 7. Objects. Объекты
+# 8. Classes. Классы.
+# 9. Scope
+
+# 1. Variables. Переменные.
 # Это, как контейнеры, которые используются для хранения информации,
 # чтобы потом использовать позже.
 
@@ -42,7 +53,7 @@ layerA.x = layerA.x + 100
 
 # ———————
 
-# Strings. Строки.
+# 2. Strings. Строки.
 # Используются для определения значений цвета, название слоев,
 # могут быть отдельные слова или целые предложения.
 
@@ -69,7 +80,7 @@ print "I’m #{age} now and #{age + 10} in ten years from now." # I’m 25 now a
 
 # ———————
 
-# Booleans – true и false.
+# 3. Booleans – true и false.
 # Используются для включения/выключения некоторых свойств.
 
 # Например:
@@ -86,7 +97,7 @@ print layerB.visible or layerC.visible # true
 
 # ———————
 
-# Conditionals. Условия.
+# 4. Conditionals. Условия.
 # Используя условия, мы можем попросить программу выбрать один из двух (или более) возможных вариантов.
 button = new Layer
 
@@ -125,9 +136,9 @@ layerA.onDrag ->
 
 # ———————
 
-# Loops & Arrays. Циклы и массивы
+# 5. Loops & Arrays. Циклы и массивы
 # Циклы и массивы помогут нам создавать и редактировать несколько элементов одновременно.
-# Тагже они могут помочь нам избежать написания повторяющегося кода.
+# Также они могут помочь нам избежать написания повторяющегося кода.
 
 # Это:
 for index in [1..3]
@@ -340,7 +351,20 @@ button = new Button
 
 # ———————
 
+# ———————
+
+# Basics
+
+# Содержание:
+# 1. Layer. Слои.
+
 # Layer
+# Содержание:
+# 1. Id
+# 2. Name
+# 3. Center
+# 4. Parent
+
 # Слой – базовый контейнер Framer, который может содержать images, videos, or text.
 # Слои могут быть вложенными.
 
@@ -359,13 +383,13 @@ layer_name = new Layer
 # И вы также можете переопределить свойства слоя позже:
 layer_name.x = 200
 
-# Id
+# 1. Id
 # Уникальный идентификационный номер слоя.
 # ID слоя только для чтения и не может быть изменен.
 layer_name = new Layer
   print layerA.id # Output: 1
 
-# Name
+# 2. Name
 # Название слоя.
 # По умолчанию слои не имеют имени. Импортированные слои наследуют имя, которое вы определили в Sketch или Photoshop.
 
@@ -376,7 +400,44 @@ layer_name = new Layer
 
 # ...продолжение следует
 
-# Parent
+# 3. Center
+# Это свойство центрирует обьект(слой) внутри родителя.
+# Если нету родителя, то обьект будет центрироватся относительно экрана.
+
+centerX(offset) # – выравнивает обьект по горизонтали.
+# offset – число, на сколько надо сместить положение обьекта.
+layerA = new Layer
+  width: 500
+  height: 500
+
+layerB = new Layer
+  parent: layerA
+  width: 100
+  height: 100
+
+layerB.centerX()
+print layerB.x, layerB.y
+# Output: 200, 0
+
+layerB.centerX(20)
+print layerB.x, layerB.y
+# Output: 220, 0
+
+centerY() # – выравнивает по вертикали.
+
+pixelAlign()
+# Округляет x и y значения слоя до целых чисел.
+# Позволяет привязать слои к пикселям.
+# Это полезно при динамическом центрирования слоев.
+layerA = new Layer
+  x: 100.18293
+  y: 10.12873
+
+layerA.pixelAlign()
+
+print layerA.x, layerA.y
+
+# 4. Parent
 # Устанавливает родителя для этого слоя.
 # Иначе называемый – superLayer.
 
@@ -574,6 +635,12 @@ layerA.name = "Square"
 
 layerA.on Events.Click, (event, layer) ->
   print "Clicked", layer.name
+
+# Animation Events
+layerA.on Events.Click, ->
+  layerA.animate
+    properties:
+      y: 100
 
 # Пример 2:
 layerA = new Layer
