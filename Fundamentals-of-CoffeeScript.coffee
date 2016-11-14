@@ -1,19 +1,134 @@
-# Foundations of a programming
+#### Foundations of a programming
 
-# Содержание:
-# 1. Variables. Переменные.
-# 2. Strings. Строки.
-# 3. Booleans – true и false.
-# 4. Conditionals. Условия.
-# 5. Loops & Arrays. Циклы и массивы
-# 6. Functions. Функции.
-# 7. Objects. Объекты
-# 8. Classes. Классы.
-# 9. Scope
+Содержание:
+1. ScrollComponent
+1.1. wrap
+1.2. content
+1.3. scrollHorizontal
+1.4. scrollVertical
 
-# 1. Variables. Переменные.
-# Это, как контейнеры, которые используются для хранения информации,
-# чтобы потом использовать позже.
+...
+
+2. PageComponent
+2.1. page.addPage(direction)
+2.2. page.snapToPage(page, animate, animationOptions)
+...
+
+#### 1. ScrollComponent
+
+ScrollComponent используется для скрола содержимого. ScrollComponent построин из двух слоев.
+Компонент представляет собой слой-маску, который, как маска для контента.
+
+#### 1.1. wrap
+
+ – нужен для создания скролла в импортированных слоев.
+Добавляет импортированные слои в скрол компонет и делает их со скролом.
+
+Scroll = ScrollComponent.wrap(LayerA)
+
+#### 1.2. content
+Слой для добавления содержимого. Чтобы добавить содержимое, создайте новый слой и установите родителя scroll.content.
+
+scroll.content <layer>
+
+#### 1.3. scrollHorizontal
+
+Включение/выключение (true/false) горизонтальной прокрутки:
+
+scroll.scrollHorizontal = false
+
+#### 1.4. scrollVertical
+
+Включение/выключение (true/false) вертикальной прокрутки:
+
+scroll.scrollVertical = false
+
+#### 1.0. speedX
+
+Cкорость прокрутки по горизонту, число в диапазоне от 0 до 1. Значение по умолчанию равно 1.
+
+scroll.speedX = 0.5
+
+#### 1.0. speedY
+
+Cкорость прокрутки по вертикали, число в диапазоне от 0 до 1. Значение по умолчанию равно 1.
+
+scroll.speedY = 0.5
+
+...
+
+#### 2. PageComponent
+
+PageComponent основан на ScrollComponent, разница в том, что он отопражает постранично вместо непрырывного содержания.
+PageComponent поддержует слои контента разных размеров.
+
+# Создать новый PageComponent и разрешить только горизонтальную прокрутку.
+page = new PageComponent
+	width: Screen.width
+	height: Screen.height
+	scrollVertical: false
+
+# Определение первой страницы, помещаем непосредственно в page.content
+pageOne = new Layer
+	width: page.width
+	height: page.height
+	parent: page.content
+	backgroundColor: "#28affa"
+
+# Определение второй страницы
+pageTwo = new Layer
+	width: page.width
+	height: page.height
+	backgroundColor: "#90d7ff"
+
+# Добавление второй страницы с права
+page.addPage(pageTwo, "right")
+
+# 2.1. page.addPage(direction)
+
+Добавить новый слой в page.content слой PageComponent компонента. Он принимает два аргумента:
+слой(страница) и направление (right/bottom).
+
+page.addPage(pageTwo, "right")
+page.addPage(pageThree, "right")
+
+Если вы хотите добавить страницу с левой стороны, вы можете, сначала, добавить ее с правой,
+а потом перейти на другую страницу используя snapToPage().
+
+# Начать со второй странице по умолчанию
+page.snapToPage(pageTwo, false)
+
+# 2.2. page.snapToPage(page, animate, animationOptions)
+Привязка с конкретной страницы. Принимает три аргумента. По умолчанию, анимация устанавливается в true,
+сurve анимации.
+
+# Автомпатически переходит в pageTwo
+page.snapToPage( pageTwo)
+
+# С определением свойствами анимации
+page.snapToPage(
+  pageTwo
+  true
+  animationOptions = curve: "ease", time: 2
+)
+####
+
+Содержание:
+1. Variables. Переменные.
+2. Strings. Строки.
+3. Booleans – true и false.
+4. Conditionals. Условия.
+5. Loops & Arrays. Циклы и массивы
+6. Functions. Функции.
+7. Objects. Объекты
+8. Classes. Классы.
+9. Scope
+
+#### 1. Variables. Переменные.
+
+Это, как контейнеры, которые используются для хранения информации,
+чтобы потом использовать позже.
+
 
 container = "Something in it"
 
