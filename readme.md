@@ -3,10 +3,14 @@
 ### Содержание:
 
 1. ScrollComponent
-  1.1. Wrap
-  1.2. Content
-  1.3. scrollHorizontal
-  1.4. scrollVertical
+
+1.1. Wrap
+
+1.2. Content
+
+1.3. scrollHorizontal
+
+1.4. scrollVertical
 
 ---
 
