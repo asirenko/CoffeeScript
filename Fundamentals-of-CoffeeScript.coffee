@@ -1,4 +1,72 @@
 #### Foundations of a programming
+Содержание:
+Animate
+
+# ———————
+
+#### Animate. Анимация слоя.
+# Создайте обьект, который будет анимироаться с набором свойств или состояний.
+
+# Аргументы:
+# properties – свойства слоя
+# state –  имя состояния
+# options – параметры анимации – кривые, время и многое другое. (Необязательный)
+
+# Пример:
+layerA = new Layer
+
+# Animate the x position
+layerA.animate
+  x: 200
+
+# Пример: Анимация с properties
+layerA.animate
+	properties:
+		opacity: 0
+	repeat: 100
+	time: 0.5
+	delay: 0.25
+
+# Пример: Анимация с options
+layerA.animate
+  x: 200
+  options:
+    curve: "spring"
+
+# Пример: Анимации с состоянием
+# Создаем новый стейт
+layerA.states.stateA =
+  x: 200
+
+# Запускаем анимацию
+layerA.animate "stateA"
+
+# Пример: Анимации состояниея с опциями
+layerA.animate "stateA",
+  curve: "spring"
+
+# ———————
+
+#### animationOptions.
+
+# Аргументы(свойства) анимации:
+# curve – Строка, кривые.
+# curveOptions — Обьект с параметрами кривых.
+# time — Число, длительность в секундах.
+# delay — Число, задержка анимации.
+# repeat — Число, количество повторений анимации.
+# colorModel — Строка, анимация цвета.
+# instant –  Boolean, мгновенно перейти к концу анимации.
+
+# Пример:
+layerA = new Layer
+
+layerA.animationOptions =
+  curve: "ease"
+  time: 0.25
+
+
+# ———————
 
 Содержание:
 1. ScrollComponent
@@ -7,8 +75,11 @@
 1.2. contentInset
 1.3. speedX
 1.4. speedY
+1.5. scroll
 1.6. scrollHorizontal
 1.7. scrollVertical
+1.8. scrollX
+1.9. scrollY
 
 ...
 
@@ -82,6 +153,13 @@ scroll.speedY = 0.5
 
 # ———————
 
+#### 1.5. scroll. Включение/отключение скролла (Установить значение scrollVertical и scrollHorizontal false).
+
+...
+scroll.scroll = false
+
+# ———————
+
 #### 1.6. scrollHorizontal
 # Включение/выключение (true/false) горизонтальной прокрутки:
 
@@ -96,7 +174,7 @@ scroll.scrollVertical = false
 
 # ———————
 
-#### 1.7. scrollX – Горизонтальное расположение скролла
+#### 1.8. scrollX – Горизонтальное расположение скролла
 
 scroll = new ScrollComponent
 
@@ -108,7 +186,7 @@ scroll.scrollX = 250
 
 # ———————
 
-#### 1.8. scrollY – Устанавливает вертикальное расположение скролла
+#### 1.9. scrollY – Устанавливает вертикальное расположение скролла
 
 scroll = new ScrollComponent
 
@@ -997,9 +1075,50 @@ layer_name.onSwipeEnd ->
 
 # ———————
 
+#### Animation
+
+# Events.AnimationStart — Событие вызывается при запуске анимации.
+# Events.AnimationStop — Событие вызывается, когда анимация закончилась или остановилась на половине пути.
+# Events.AnimationEnd – Событие вызывается, только тогда, когда анимация полностью закончена.
+
+Пример:
+layerA = new Layer
+
+layerA.animate
+  x: 100
+
+# Returns the animation and the layer
+layerA.on Events.AnimationEnd, (animation, layer) ->
+  print animation, layer
+
+# Короткая запись:
+# For Events.AnimationStart
+layerA.onAnimationStart ->
+  print "Animation started"
+
+# For Events.AnimationStop
+layerA.onAnimationStop ->
+  print "Animation stopped"
+
+# For Events.AnimationEnd
+layerA.onAnimationEnd ->
+  print "Animation ended"
+
+# ———————
+
 5. Utils
 5.1. Modulate
-
+delay(delay, handler)
 ...
 
 #### 5.1. Utils.modulate
+
+#### Utils.delay(delay, handler)
+# Вызывает Funtion после задержки. Задержка задается в секундах.
+
+# Аргументы:
+# delay – время задержки
+# handler – функция
+
+Utils.delay 0.5, ->
+  print "hello" # Output: "hello", after 0.5 seconds 
