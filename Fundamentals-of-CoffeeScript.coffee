@@ -2,10 +2,13 @@
 
 Содержание:
 1. ScrollComponent
-1.1. wrap
-1.2. content
-1.3. scrollHorizontal
-1.4. scrollVertical
+1.0. wrap
+1.1. content
+1.2. contentInset
+1.3. speedX
+1.4. speedY
+1.6. scrollHorizontal
+1.7. scrollVertical
 
 ...
 
@@ -14,53 +17,114 @@
 2.2. page.snapToPage(page, animate, animationOptions)
 ...
 
+3. SliderComponent
+...
+
 #### 1. ScrollComponent
 
-ScrollComponent используется для скрола содержимого. ScrollComponent построин из двух слоев.
-Компонент представляет собой слой-маску, который, как маска для контента.
+# ScrollComponent используется для скрола содержимого. ScrollComponent построин из двух слоев.
+# Компонент представляет собой слой-маску, который, как маска для контента.
 
-#### 1.1. wrap
+# ———————
 
- – нужен для создания скролла в импортированных слоев.
-Добавляет импортированные слои в скрол компонет и делает их со скролом.
+#### 1.0. wrap
+
+# Нужен для создания скролла в импортированных слоев.
+# Добавляет импортированные слои в скрол компонет и делает их со скролом.
 
 Scroll = ScrollComponent.wrap(LayerA)
 
-#### 1.2. content
-Слой для добавления содержимого. Чтобы добавить содержимое, создайте новый слой и установите родителя scroll.content.
+# или
 
-scroll.content <layer>
+Scroll = ScrollComponent.wrap LayerA
 
-#### 1.3. scrollHorizontal
+# ———————
 
-Включение/выключение (true/false) горизонтальной прокрутки:
+#### 1.1. content
+# Слой для добавления содержимого. Чтобы добавить содержимое,
+# создайте новый слой и установите parent: scroll.content.
 
-scroll.scrollHorizontal = false
+scroll = new ScrollComponent
+  width: 100
+  height: 100
 
-#### 1.4. scrollVertical
+layerA = new Layer
+  parent: scroll.content
+  image: "images/bg.png"
+  width: 100
+  height: 200
 
-Включение/выключение (true/false) вертикальной прокрутки:
+# ———————
 
-scroll.scrollVertical = false
+#### 1.2. contentInset
+# Добавить отступы для контента от края
 
-#### 1.0. speedX
+...
+scroll.contentInset =
+  top: 20
+  right: 0
+  bottom: 20
+  left: 0
 
-Cкорость прокрутки по горизонту, число в диапазоне от 0 до 1. Значение по умолчанию равно 1.
+# ———————
+
+#### 1.3. speedX
+# Cкорость прокрутки по горизонту, число в диапазоне от 0 до 1. Значение по умолчанию равно 1.
 
 scroll.speedX = 0.5
 
-#### 1.0. speedY
+# ———————
 
-Cкорость прокрутки по вертикали, число в диапазоне от 0 до 1. Значение по умолчанию равно 1.
+#### 1.4. speedY
+# Cкорость прокрутки по вертикали, число в диапазоне от 0 до 1. Значение по умолчанию равно 1.
 
 scroll.speedY = 0.5
 
+# ———————
+
+#### 1.6. scrollHorizontal
+# Включение/выключение (true/false) горизонтальной прокрутки:
+
+scroll.scrollHorizontal = false
+
+# ———————
+
+#### 1.7. scrollVertical
+# Включение/выключение (true/false) вертикальной прокрутки:
+
+scroll.scrollVertical = false
+
+# ———————
+
+#### 1.7. scrollX – Горизонтальное расположение скролла
+
+scroll = new ScrollComponent
+
+layerA = new Layer
+  parent: scroll.content
+
+scroll.scrollX = 250
+
+
+# ———————
+
+#### 1.8. scrollY – Устанавливает вертикальное расположение скролла
+
+scroll = new ScrollComponent
+
+layerA = new Layer
+  parent: scroll.content
+
+scroll.scrollY = 250
+
+# ———————
+
+
 ...
 
-#### 2. PageComponent
-
-PageComponent основан на ScrollComponent, разница в том, что он отопражает постранично вместо непрырывного содержания.
-PageComponent поддержует слои контента разных размеров.
+#### 2. PageComponent.
+# PageComponent основан на ScrollComponent, разница в том, что он отопражает постранично вместо непрырывного содержания.
+# PageComponent поддержует слои контента разных размеров.
 
 # Создать новый PageComponent и разрешить только горизонтальную прокрутку.
 page = new PageComponent
@@ -84,26 +148,57 @@ pageTwo = new Layer
 # Добавление второй страницы с права
 page.addPage(pageTwo, "right")
 
-# 2.1. page.addPage(direction)
+# Пример используя for-loop:
 
-Добавить новый слой в page.content слой PageComponent компонента. Он принимает два аргумента:
-слой(страница) и направление (right/bottom).
+page = new PageComponent
+	width: Screen.width
+	height: Screen.height
+	scrollVertical: false
+	backgroundColor: "#fff"
+
+# Создание 5 новых слоев и добавление их в page.content
+for number in [0..5]
+	pageContent = new Layer
+		width: page.width
+		height: page.height
+		x: page.width * number
+		backgroundColor: Utils.randomColor(0.5)
+		parent: page.content
+
+	# Визуализация текущего номера
+	pageContent.html = pageContent.html = number + 1
+
+	#	Центрирование текущего номера страницы
+	pageContent.style =
+		"font-size" : "100px",
+		"font-weight" : "100",
+		"text-align" : "center",
+		"line-height" : "#{page.height}px"
+
+# ———————
+
+# 2.1. page.addPage(direction)
+# Добавить новый слой в page.content слой PageComponent компонента. Он принимает два аргумента:
+# слой(страница) и направление (right/bottom).
 
 page.addPage(pageTwo, "right")
 page.addPage(pageThree, "right")
 
-Если вы хотите добавить страницу с левой стороны, вы можете, сначала, добавить ее с правой,
-а потом перейти на другую страницу используя snapToPage().
+# Если вы хотите добавить страницу с левой стороны, вы можете, сначала, добавить ее с правой,
+# а потом перейти на другую страницу используя snapToPage().
 
 # Начать со второй странице по умолчанию
 page.snapToPage(pageTwo, false)
 
+# ———————
+
 # 2.2. page.snapToPage(page, animate, animationOptions)
-Привязка с конкретной страницы. Принимает три аргумента. По умолчанию, анимация устанавливается в true,
-сurve анимации.
+# Автомпатический переход на конкретную страницу.
+# Принимает три аргумента: страница, true/false для анимации, опции анимации.
+# По умолчанию, проигруется анимация(true), параметр сurve для анимации.
 
 # Автомпатически переходит в pageTwo
-page.snapToPage( pageTwo)
+page.snapToPage(pageTwo)
 
 # С определением свойствами анимации
 page.snapToPage(
@@ -111,6 +206,24 @@ page.snapToPage(
   true
   animationOptions = curve: "ease", time: 2
 )
+
+...
+
+# ———————
+
+#### 3. SliderComponent
+# SliderComponent создает полностью настраиваемый слайдер для вас.
+# С его помощью вы можете настроить любое числовое значение или свойства слоя.
+# Он состоит из трех слоев: сам ползунок, заливка и регулятор.
+
+slider = new SliderComponent
+slider.center()
+
+# По умолчанию ползунок имеет темный цвет заливки, светло-серый BackgroundColor и закругленные углы borderRadius.
+
+slider.backgroundColor = "#ddd"
+slider.borderRadius = 4
+
 ####
 
 Содержание:
@@ -124,11 +237,11 @@ page.snapToPage(
 8. Classes. Классы.
 9. Scope
 
+# ———————
+
 #### 1. Variables. Переменные.
-
-Это, как контейнеры, которые используются для хранения информации,
-чтобы потом использовать позже.
-
+# Это, как контейнеры, которые используются для хранения информации,
+# чтобы потом использовать позже.
 
 container = "Something in it"
 
@@ -773,6 +886,29 @@ layerA.off(Events.Click, clickHandler)
 
 # ———————
 
+# layer.on(eventName, handler)
+# Начать слушать событие на этом слое.
+# Первым аргументом является информация о событии.
+# Второй аргумент – слой.
+layerA = new Layer
+layerA.name = "layerA"
+
+layerA.on Events.Click, (event, layer) ->
+	print "Clicked", layer.name
+
+# Прекратите слушать события на этом слое.
+layerA = new Layer
+layerA.name = "layerA"
+
+clickHandler = (event, layer) ->
+  print "This layer was clicked", layer.name
+
+layerA.on(Events.Click, clickHandler)
+layerA.off(Events.Click, clickHandler)
+
+
+# ———————
+
 # Tap Events
 # Событие на нажатие
 
@@ -860,3 +996,10 @@ layer_name.onSwipeEnd ->
   print "End swiping"
 
 # ———————
+
+5. Utils
+5.1. Modulate
+
+...
+
+#### 5.1. Utils.modulate
